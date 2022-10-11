@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Avaleht from "./Pages/Avaleht";
+import Lisatoode from "./Pages/LisaToode";
+import Ostukorv from "./Pages/Ostukorv";
+
+// ctrl+ä et kommentaari panna
+/* <button className="nupp">Nupp</button>
+<img className="pilt" src="https://uscar.ee/wp-content/uploads/2019/04/challenger-gt.png" alt="" /> */
+/* <button></button> algustäg+lõputäg */
+/* <div>Tekst<div><button>Nupp</button></div></div> algustag+lõputag */
+/* <img src="" alt="" /> */
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <Link to="/">
+        <img className="pilt" src="https://uscar.ee/wp-content/uploads/2019/04/challenger-gt.png" alt="" />
+      </Link>
+
+      <Link to="/lisa-toode">
+        <button className='nupp'>Lisa toode</button>
+      </Link>
+
+      <Link to="/ostukorv">
+        <button className='nupp'>Ostukorvi</button>
+      </Link>
+
+
+      <Routes>
+        <Route path="" element={ <Avaleht /> }/>
+        <Route path="lisa-toode" element={ <Lisatoode />}/>
+        <Route path="ostukorv" element={ <Ostukorv />}/>
+      </Routes>
     </div>
   );
 }
