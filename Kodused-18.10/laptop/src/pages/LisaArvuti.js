@@ -1,7 +1,5 @@
 import { useState } from "react"
 
-
-
 function LisaArvuti() {
     const [message, setMessage] = useState("Lisa arvuti!")
     const [n2itaNuppu, uuendaN2itaNuppu] = useState(true);
