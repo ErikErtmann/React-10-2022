@@ -9,17 +9,22 @@ function Seaded() {
 
 
 
-    const muudaKeelEST = () => {
-        uuendaKeel("EST");
-        localStorage.setItem("veebilehe_keel","EST");
-    }
-    const muudaKeelENG = () => {
-        uuendaKeel("ENG");
-        localStorage.setItem("veebilehe_keel","ENG");
-    }
-    const muudaKeelRUS = () => {
-        uuendaKeel("RUS");
-        localStorage.setItem("veebilehe_keel","RUS");
+    // const muudaKeelEST = () => {
+    //     uuendaKeel("EST");
+    //     localStorage.setItem("veebilehe_keel","EST");
+    // }
+    // const muudaKeelENG = () => {
+    //     uuendaKeel("ENG");
+    //     localStorage.setItem("veebilehe_keel","ENG");
+    // }
+    // const muudaKeelRUS = () => {
+    //     uuendaKeel("RUS");
+    //     localStorage.setItem("veebilehe_keel","RUS");
+    // }
+
+    const muudaKeel = (uusKeel) => {
+        uuendaKeel(uusKeel); //uuendahtml
+        localStorage.setItem("veebilehe_keel", uusKeel); //salvesta brauserisse
     }
 
 
@@ -33,6 +38,7 @@ function Seaded() {
 
     return (
         <div>
+            <div>
             <br /><br />
             <label>Meie telefon</label>
             <input ref={telRef} type="text" />
@@ -43,12 +49,13 @@ function Seaded() {
             <input ref={emailRef} type="text" />
             <button onClick={sisestaEmail}>Sisesta</button>
             <br />
+            </div>
 
             <br /><br />
             <div>Vali veebilehe keel:</div>
-            <button onClick={muudaKeelEST}>Eesti</button>
-            <button onClick={muudaKeelENG}>Inglise</button>
-            <button onClick={muudaKeelRUS}>Vene</button>
+            <button onClick={() => muudaKeel("EST")}>Eesti</button>
+            <button onClick={() => muudaKeel("ENG")}>Inglise</button>
+            <button onClick={() => muudaKeel("RUS")}>Vene</button>
             { keel === "EST" && <div>Veebilehe keel on eesti</div> }
             { keel === "RUS" && <div>Veebilehe keel on vene</div> }
             { keel === "ENG" && <div>Veebilehe keel on inglise</div> }

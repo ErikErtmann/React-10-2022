@@ -31,11 +31,9 @@ function App() {
       <Link to="/">
         <img className="pilt" src="https://uscar.ee/wp-content/uploads/2019/04/challenger-gt.png" alt="" />
         </Link>
-
       <Link to="/lisa-toode">
         <button className="nupp">Lisa toode</button>
       </Link>
-      
       <Link to="/ostukorv">
         <button className="nupp">Ostukorvi</button>
       </Link>
@@ -44,6 +42,9 @@ function App() {
       </Link>
       <Link to="/meist">
         <button className="nupp">Meist</button>
+      </Link>
+      <Link to="/poed">
+        <button className="nupp">Poed</button>
       </Link>
 
       <Routes>
