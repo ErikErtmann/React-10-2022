@@ -12,14 +12,22 @@ const ingliseks = () => {
     määraEmail("londonfon@gmail.don");
     määraIngliseKeelne("jah");
 }
+const tagasi = () => {
+    määraAadress("Tallinn");
+    määraTelefon("+55124141");
+    määraEmail("fgaf@fgaf.com");
+    määraIngliseKeelne("ei");    
+}
 
 return ( 
     <div>
         <div>{aadress}</div>
         <div>{telefon}</div>
         <div>{email}</div>
-        <button onClick={ingliseks}>Inglise keelne</button>
+        { ingliseKeelne === "ei" && <button onClick={ingliseks}>Inglise keelne</button>}
+        { ingliseKeelne === "jah" && <button onClick={tagasi}>Eesti keelne</button>}
         { ingliseKeelne === "jah" && <div>Leht on inglise keelne</div> }
+        { ingliseKeelne === "ei" && <div>Leht on eesti keelne</div> }
     </div>
     );
 }
