@@ -64,16 +64,6 @@ function App() {
         <Route path="seaded" element={ <Seaded /> } />
       </Routes>
      
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
      </div>
 
   );

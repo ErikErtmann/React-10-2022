@@ -24,8 +24,8 @@ return (
         <div>{aadress}</div>
         <div>{telefon}</div>
         <div>{email}</div>
-        { ingliseKeelne === "ei" && <button onClick={ingliseks}>Inglise keelne</button>}
-        { ingliseKeelne === "jah" && <button onClick={tagasi}>Eesti keelne</button>}
+        { ingliseKeelne === "ei" && <button onClick={ingliseks}>Välismaal</button>}
+        { ingliseKeelne === "jah" && <button onClick={tagasi}>Eestis</button>}
         { ingliseKeelne === "jah" && <div>Leht on inglise keelne</div> }
         { ingliseKeelne === "ei" && <div>Leht on eesti keelne</div> }
     </div>
