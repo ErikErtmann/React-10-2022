@@ -21,11 +21,6 @@ function Poed() {
         uuendaPoed(vastus);
     }
 
-    const kustuta = (number) => {
-        poed.splice(number,1);  //kustutamine esimene on mitmendat kustutan, teine on mitu tk kustutan
-        uuendaPoed(poed.slice());
-    }
-
     const muudaSuureks = () => {
        const vastus = poed.map(pood=> pood.toUpperCase());
        uuendaPoed(vastus);
@@ -35,6 +30,12 @@ function Poed() {
         poed.push(nimiRef.current.value);
         uuendaPoed(poed.slice());
     }
+
+    const kustuta = (number) => {
+        poed.splice(number,1);  //kustutamine esimene on mitmendat kustutan, teine on mitu tk kustutan
+        uuendaPoed(poed.slice());
+    }
+
 
     return (
         <div>
