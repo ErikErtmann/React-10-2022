@@ -38,18 +38,17 @@ function Seaded() {
 
     return (
         <div>
-            <div>
+          <div>
             <br /><br />
             <label>Meie telefon</label>
-            <input ref={telRef} type="text" />
+            <input defaultValue={localStorage.getItem("telefon")}ref={telRef} type="text" />
             <button onClick={sisestaTel}>Sisesta</button>
-            <br />
-            
+            <br />            
             <label>Meie email</label>
-            <input ref={emailRef} type="text" />
+            <input defaultValue={localStorage.getItem("email")} ref={emailRef} type="text" />
             <button onClick={sisestaEmail}>Sisesta</button>
             <br />
-            </div>
+          </div>
 
             <br /><br />
             <div>Vali veebilehe keel:</div>
