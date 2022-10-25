@@ -4,7 +4,7 @@ import Avaleht from './pages/Avaleht';
 import Uudised from './pages/Uudised';
 import Kontakt from './pages/Kontakt';
 import Meist from './pages/Meist';
-
+import LisaUudis from './pages/LisaUudis';
 
 function App() {
   return (
@@ -25,11 +25,16 @@ function App() {
         <button>Info meist</button>
       </Link>
 
+      <Link to ="/lisauudis">
+        <button>Lisa uudis</button>
+      </Link>
+
       <Routes>
         <Route path= '' element={ <Avaleht/>} />
         <Route path= 'uudised' element={ <Uudised/>} />
         <Route path= 'kontakt' element={ <Kontakt/>} />
         <Route path= 'meist' element={ <Meist/>} />
+        <Route path= 'lisauudis' element={<LisaUudis/>} />
       </Routes>
     </div>
   );
