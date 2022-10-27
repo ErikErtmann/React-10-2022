@@ -4,8 +4,10 @@ function Kontakt() {
     <br />
     <div>Võta meiega ühendust:</div>
     <br />
-    <div>Kliendi-info </div>
-    <div>+372 586861168</div>
+
+    <div>Telefon: +372 586861168</div>
+    <div>Email: uudised@parim.ee</div>
+    <div>Aadress: Vembu-Tembu tee 9a-205c</div>
 
     <img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Telefonbog_ubt-1.JPG" alt="" />
     

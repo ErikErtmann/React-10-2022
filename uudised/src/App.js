@@ -5,6 +5,9 @@ import Uudised from './pages/Uudised';
 import Kontakt from './pages/Kontakt';
 import Meist from './pages/Meist';
 import LisaUudis from './pages/LisaUudis';
+import HaldaUudiseid from './pages/HaldaUudiseid';
+import YksUudis from './pages/YksUudis';
+import MuudaUudis from './pages/MuudaUudis';
 
 function App() {
   return (
@@ -25,16 +28,25 @@ function App() {
         <button>Info meist</button>
       </Link>
 
-      <Link to ="/lisauudis">
+      <Link to ="/lisa-uudis">
         <button>Lisa uudis</button>
       </Link>
+      
+      <Link to ="/halda">
+        <button>Uudiseid haldama</button>
+      </Link>
+
+    
 
       <Routes>
         <Route path= '' element={ <Avaleht/>} />
         <Route path= 'uudised' element={ <Uudised/>} />
         <Route path= 'kontakt' element={ <Kontakt/>} />
         <Route path= 'meist' element={ <Meist/>} />
-        <Route path= 'lisauudis' element={<LisaUudis/>} />
+        <Route path= 'lisa-uudis' element={<LisaUudis/>} />
+        <Route path= 'halda' element={<HaldaUudiseid/>} />
+        <Route path= 'uudis/:index' element={<YksUudis/>} />
+        <Route path= 'muuda/:index' element={<MuudaUudis/>} />
       </Routes>
     </div>
   );
