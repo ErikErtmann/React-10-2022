@@ -12,14 +12,18 @@ function HaldaToode() {
 
     return (
     <div>
-       {tooted.map((element, index) =>
-        <div key={index}>
-            {element}
+       {tooted.map((toode, index) =>
+    //   classname = kui toode aktiivne on tõsi, siis valib automaatselt "aktiivne" :-vastasel juhul "mitte-aktiivne"
+        <div className={toode.aktiivne === true ? "active": "inactive"} key={index}>
+            <img src={toode.pilt} alt="" />
+            <div>{toode.nimi}</div>
+            <div>{toode.hind}</div>
+            <div>{toode.aktiivne}</div>
             <button onClick={() => kustuta(index)}>Kustuta</button>
             <Link to={"/muuda-toode/" + index}>
                 <button>Muuda</button>
             </Link>
-            </div>)}
+        </div>)}
     </div>);
 }
 

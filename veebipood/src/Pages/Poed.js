@@ -4,30 +4,30 @@ import poedFailist from "../poed.json"
 function Poed() {
     const [poed, uuendaPoed] = useState(poedFailist);
     const nimiRef = useRef();
+    const aegRef = useRef();
 
     const sorteeriAZ = () => {
-        poed.sort();
+        poed.sort((a,b) => a.nimi.localeCompare(b.nimi));  
         uuendaPoed(poed.slice());
     }
 
     const sorteeriZA = () => {
-        poed.sort();
-        poed.reverse();
+        poed.sort((a,b) => b.nimi.localeCompare(a.nimi));   
         uuendaPoed(poed.slice());
     }
 
     const filtreeri = () => {
-        const vastus = poed.filter(pood => pood.includes("mäe"));
+        const vastus = poed.filter(pood => pood.nimi.includes("mäe"));
         uuendaPoed(vastus);
     }
 
     const muudaSuureks = () => {
-       const vastus = poed.map(pood=> pood.toUpperCase());
+       const vastus = poed.map(pood => {return {"nimi": pood.nimi.toUpperCase(), "aeg": pood.aeg}});
        uuendaPoed(vastus);
     }
 
     const lisa = () => {
-        poed.push(nimiRef.current.value);
+        poed.push({"nimi": nimiRef.current.value, "aeg": "8-23"});
         uuendaPoed(poed.slice());
     }
 
@@ -45,11 +45,15 @@ function Poed() {
             <button onClick={muudaSuureks}>Muuda igaüht</button>
             { poed.map((pood, j2rjekorraNumber) => 
                 <div key={j2rjekorraNumber}>
-                    {pood} <button onClick={() => kustuta(j2rjekorraNumber)}>x</button>
+                    <div>{pood.nimi}</div> 
+                    <div>Lahtiolekuaeg: {pood.aeg}</div> 
+                    <button onClick={() => kustuta(j2rjekorraNumber)}>x</button>
                 </div>) }
             
             <label>Uue poe nimi</label> <br />
             <input ref={nimiRef} type="text" /> <br />
+            <label>Uue poe lahtiolekuaeg</label>
+            <input ref={aegRef} type="text" /> <br />
             <button onClick={lisa}>Lisa</button><br />
             
             

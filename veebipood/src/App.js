@@ -29,7 +29,7 @@ function App() {
     <div className="App">
 
       <Link to="/">
-        <img className="pilt" src="https://uscar.ee/wp-content/uploads/2019/04/challenger-gt.png" alt="" />
+        <img className="pilt" src="https://www.onlineexpo.com/site/assets/files/49414/coop_cmyk.jpg" alt="" />
         </Link>
       <Link to="/lisa-toode">
         <button className="nupp">Lisa toode</button>

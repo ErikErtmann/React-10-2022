@@ -3,7 +3,7 @@ import { useRef } from "react";
 
 function MuudaUudis() { 
     const { index } = useParams();
-    const uudisedLS = JSON.parse(localStorage.getitem("uudised")) || [];
+    const uudisedLS = JSON.parse(localStorage.getItem("uudised")) || [];
     const found = uudisedLS[index];
     const uudisRef = useRef();
 

@@ -21,6 +21,13 @@ function Ostukorv() {
         localStorage.setItem("ostukorv", JSON.stringify([]));
     }
 
+    const arvutaKogusumma = () => {
+      let kogusumma = 0;
+      // ostukorv.forEach(element => kogusumma += element.hind); teeb sama mis alumine rida
+      ostukorv.forEach(element => kogusumma = kogusumma + element.hind);
+      return kogusumma.toFixed(2);
+    }
+
   return ( 
     <div>       
       {ostukorv.length > 0 && <button onClick={tyhjenda}>Tühjenda</button>}
@@ -28,10 +35,15 @@ function Ostukorv() {
       {ostukorv.length === 0 && <div>Ostukorv on tühi</div>}
       { ostukorv.map((element, index) =>
         <div key={index}>
-            {element}
+            <img src={element.pilt} alt="" />
+            <div>{element.nimi}</div>
+            <div>{element.hind} €</div>
+            <div>{element.aktiivne}</div>
             <button onClick={() => lisa(element)}>+</button>   
             <button onClick={() => kustuta(index)}>-</button>         
         </div>) }
+
+      <div>Kokku: {arvutaKogusumma()} €</div>
     </div> );
 }
 

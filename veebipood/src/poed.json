@@ -1,1 +1,10 @@
-["Kristiine", "Ülemiste", "Mustamäe", "Põhja-Tallinn", "Kesklinn", "Lasnamäe"]
+[
+    {"nimi": "Kristiine","aeg": "9-22"}, 
+    {"nimi": "Ülemiste", "aeg": "11-22"}, 
+    {"nimi": "Mustamäe", "aeg": "10-22"}, 
+    {"nimi": "Põhja-Tallinn", "aeg": "9-22"}, 
+    {"nimi": "Kesklinn", "aeg": "9-22"}, 
+    {"nimi": "Lasnamäe", "aeg": "12-22"},
+    {"nimi": "Kakumäe", "aeg": "12-24"}
+    
+]
