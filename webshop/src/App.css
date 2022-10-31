@@ -1,0 +1,13 @@
+.lang {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+.lang:hover {
+  opacity:0.5;
+}
+
+.lang:active {
+  padding: 1px;
+}

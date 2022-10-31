@@ -1,18 +1,27 @@
-import { useState } from "react"
+import { useState,useRef } from "react"
 
 function LisaTegelane() {
     const [message, setMessage] = useState("Lisa Tegelane!")
-    const [n2itaNuppu, uuendaN2itaNuppu] = useState(true);
+    const nimiRef = useRef();
+    // const [n2itaNuppu, uuendaN2itaNuppu] = useState(true);
 
-    function addTegelane() {
-        setMessage("Tegelane Lisatud!")
-        uuendaN2itaNuppu(false)
+    const addTegelane = () => {
+      if (nimiRef.current.value === "")  {
+        setMessage("Tühja nimega ei saa sisestada");
+      } else {
+        setMessage("Tegelane lisatud");
+      }
     }
+
+    // function addTegelane() {
+    //     setMessage("Tegelane Lisatud!")
+    //     uuendaN2itaNuppu(false)
+    
     return (<div>
         <div>Sõnum: {message}</div>
         <label>Tegelase nimi</label> <br />
-        <input type="text" /> <br />
-        { n2itaNuppu === true && <button onClick={() => addTegelane()}>Lisa Uus</button>}
+        <input ref ={nimiRef} type="text" /> <br />
+        <button onClick={() => addTegelane()}>Lisa Uus</button>
 
 
     </div>);
