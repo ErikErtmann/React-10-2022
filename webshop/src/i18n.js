@@ -10,6 +10,13 @@ const resources = {
       "admin": "To admin view",
       "shops": "Our shops",
       "cart": "Cart",
+      "Your cart is currently empty": "Your cart is currently empty",
+      "You currently have": "You currently have",
+      "items in cart with a total of": "items in cart with a total of",
+      "Add to cart": "Add to cart",
+      "Empty Cart": "Empty Cart",
+      "Total": "Total",
+      
     }
   },
   est: {
@@ -17,6 +24,25 @@ const resources = {
       "admin": "Administraatori vaatesse",
       "shops": "Meie poed",
       "cart": "Ostukorv",
+      "Your cart is currently empty": "Teie ostukorv on hetkel tühi",
+      "You currently have": "Hetkel teil on",
+      "items in cart with a total of ": "toodet ostukorvis, mille kogusumma on ",
+      "Add to cart": "Lisa ostukorvi",
+      "Empty Cart": "Tühjenda ostukorv",
+      "Total": "Summa",
+    }
+  },
+  den: {
+    translation: {
+      "admin": "Til admin visning",
+      "shops": "Vores butikker",
+      "cart": "Vogn",
+      "Your cart is currently empty": "Din indkøbskurv er i øjeblikket tom",
+      "You currently have": "Du har i øjeblikket",
+      "items in cart with a total of ": "varer i indkøbskurven med i alt ",
+      "Add to cart": "Tilføj til kurv",
+      "Empty Cart": "Tom vogn",
+      "Total": "i alt",
     }
   },
 };

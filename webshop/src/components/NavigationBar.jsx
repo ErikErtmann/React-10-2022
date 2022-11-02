@@ -2,10 +2,10 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 function NavigationBar() {
- const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
 // const changeLangEst = () => {
 //     i18n.changeLanguage("est");
@@ -18,7 +18,7 @@ function NavigationBar() {
 // }
 
 const changeLang = (newLang) => {
-    i18n.changeLanguage("newLang");
+    i18n.changeLanguage(newLang);
     localStorage.setItem("language", newLang);
 }
 

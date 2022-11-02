@@ -33,7 +33,7 @@ function Ostukorv() {
       {ostukorv.length > 0 && <button onClick={tyhjenda}>Tühjenda</button>}
       {ostukorv.length > 0 && <div>{ostukorv.length} tk</div>}
       {ostukorv.length === 0 && <div>Ostukorv on tühi</div>}
-      { ostukorv.map((element, index) =>
+      {ostukorv.map((element, index) =>
         <div key={index}>
             <img src={element.pilt} alt="" />
             <div>{element.nimi}</div>
