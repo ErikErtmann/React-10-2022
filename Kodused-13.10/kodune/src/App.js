@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Avaleht from "./pages/Avaleht";
 import Kontakt from "./pages/Kontakt";
@@ -6,6 +6,8 @@ import Meist from "./pages/Meist";
 import Seaded from "./pages/Seaded";
 import { useState } from "react";
 import { useRef } from "react";
+import NavigationBar from "./components/NavigationBar";
+
 
 function App() {
   const [sisselogitud, muudaSisselogitud] = useState("ei"); 
@@ -24,6 +26,8 @@ function App() {
   
   return (
     <div className="App">
+      <NavigationBar />
+
       <div>{sonum}</div>
       { sisselogitud === "ei" && <div>
         <label>Kasutajanimi</label> <br />    
@@ -39,23 +43,12 @@ function App() {
       <img className="pilt" src="https://uscar.ee/wp-content/uploads/2019/04/challenger-gt.png" alt="" />
       <p>Väike test+varasem kodutöö</p>
      
+      
+    
 
     
-       <Link to="/">
-        <button>Avaleht</button>
-       </Link>
-       <Link to="/kontakt"> 
-        <button>Kontakt</button>
-       </Link>
-       <Link to="/meist">
-        <button>Meist</button>
-       </Link>
-       <Link to="/seaded">
-        <button>Seadetesse</button>
-       </Link>
-    
      
-     
+       
     
      <Routes>
         <Route path= "" element= {<Avaleht /> } />
