@@ -22,20 +22,24 @@ const changeLang = (newLang) => {
     localStorage.setItem("language", newLang);
 }
 
- return (     
+ return (
+  <nav class="navbariTest">    
   <Navbar bg="dark" variant="dark">
     <Container>
-      <Navbar.Brand as={Link} to="/">Webshop</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">EbayShop</Navbar.Brand>
       <Nav className="me-auto">
         <Nav.Link as={Link} to="/admin">{t('admin')}</Nav.Link>
         <Nav.Link as={Link} to="/shops">{t('shops')}</Nav.Link>
         <Nav.Link as={Link} to="/cart">{t('cart')}</Nav.Link>
       </Nav>
+      
       <img className="lang" onClick={() => changeLang ("est")}src={require("../images/EST.png")} alt= "" />
       <img className="lang" onClick={() => changeLang ("eng")}src={require("../images/UK.png")} alt= "" />
+      <img className="lang" onClick={() => changeLang ("chi")}src={require("../images/CHI.png")} alt= "" />
       <img className="lang" onClick={() => changeLang ("den")}src={require("../images/DEN.png")} alt= "" />
     </Container>
   </Navbar>
+  </nav>
   );
 }
 

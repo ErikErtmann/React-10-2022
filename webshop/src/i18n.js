@@ -32,6 +32,20 @@ const resources = {
       "Total": "Summa",
     }
   },
+  chi: {
+    translation: {
+      "admin": "到管理员视图",
+      "shops": "我们的店铺",
+      "cart": "大车",
+      "Your cart is currently empty": "您的购物车目前是空的",
+      "You currently have": "你目前有",
+      "Add to cart": "添加到购物车",
+      "Empty Cart": "空购物车",
+      "Total": "全部的",
+      
+    }
+  },
+
   den: {
     translation: {
       "admin": "Til admin visning",
@@ -45,6 +59,9 @@ const resources = {
       "Total": "i alt",
     }
   },
+
+
+  
 };
 
 i18n

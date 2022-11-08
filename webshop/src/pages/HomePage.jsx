@@ -34,7 +34,16 @@ function HomePage() {
     const addToCart = (productClicked) => {
       let cartLS = localStorage.getItem("cart");
       cartLS = JSON.parse (cartLS) || [];
-      cartLS.push(productClicked);
+      // cartLS.push(productClicked);
+      const index = cartLS.findIndex(element => element.product_id === productClicked.id);
+      if (index >= 0) { // kas toode on olemas või mitte, pidin .find() tegema kontrolli kas on undefined
+        //kas toode on olemas või mitte .findIndex() ---> pean kontrollima kas on suurem/võrdne 0, ehk ei ole -1
+        cartLS[index].quantity = cartLS[index].quantity + 1;
+      } else {
+        // {id:312, name:"asda", price: 3231, ...}
+        // {product_id:312, quantity: 1}
+        cartLS.push({product_id: productClicked.id, quantity: 1})
+      }
       cartLS = JSON.stringify(cartLS);
       localStorage.setItem("cart",cartLS);
     }
@@ -53,10 +62,10 @@ function HomePage() {
 
       <div>Total items {products.length}</div>
 
-      <button onClick={sortAZ}>Sort A-Z</button>
-      <button onClick={sortZA}>Sort Z-A</button>
-      <button onClick={sortPriceAsc}>Sort Price Asc </button>
-      <button onClick={sortPriceDesc}>Sort Price Desc</button>
+      <button onClick className="nupp">={sortAZ}>Sort A-Z</button>
+      <button onClick className="nupp">={sortZA}>Sort Z-A</button>
+      <button onClick className="nupp">={sortPriceAsc}>Sort Price Asc </button>
+      <button onClick className="nupp">={sortPriceDesc}>Sort Price Desc</button>
       {products.map(element => 
         <div key={element.id}>
           <img src={element.image} alt="" />

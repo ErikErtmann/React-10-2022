@@ -1,0 +1,23 @@
+.product {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 10%;
+    padding: 10px 0;
+    border-bottom: 1px solid lightgray;
+}
+
+.name {
+}
+
+.price {
+}
+
+.image {
+}
+
+.quantity {
+}
+
+.button {
+}
+

@@ -7,9 +7,10 @@ function MaintainCategories() {
     const [products, setProducts] = useState(productsFromFile.slice());
     const searchedProduct = useRef();
 
-    const deleteProduct = (productIndex) => {
-        products.splice(productIndex, 1);
-        setProducts(products.slice());
+    const deleteProduct = (productClicked) => {
+        const productIndex = productsFromFile.findIndex(element => element.id === productClicked.id);
+        productsFromFile.splice(productIndex, 1);
+        setProducts(productsFromFile.slice());
         //Kui vähendan otsingumootoris, siis jknr-id muutuvad
     }
 
@@ -24,7 +25,7 @@ function MaintainCategories() {
       <div>
         <input ref={searchedProduct} onKeyUp={search} type="text" />
         <span>Total products {products.lenght}</span>
-          {products.map((element,index) => 
+          {products.map((element) => 
             <div key={element.id}>
               <img src={element.image} alt="" />
               <div>{element.name}</div>
@@ -32,7 +33,7 @@ function MaintainCategories() {
               <Link to ={"/admin/edit-product/" + element.id}>
                 <Button>Edit</Button>
               </Link>
-              <Button onClick={() => deleteProduct(index)}>Delete</Button>
+              <Button onClick={() => deleteProduct(element)}>Delete</Button>
               
         </div> )}
     </div> );
