@@ -1,77 +1,103 @@
-import productsFromFile from "../data/products.json";
+// import productsFromFile from "../data/products.json";
 import Button from "react-bootstrap/Button";
-import { useTranslation } from 'react-i18next';
-import { useState } from "react";
-
-
+import Spinner from "react-bootstrap/Spinner";
+import { useEffect, useState } from "react";
+import config from "../data/config.json";
+import { ToastContainer, toast } from 'react-toastify';
 
 function HomePage() {
+  const [dbProducts, setDbProducts] = useState([]);
+  const [products, setProducts] = useState([]);
+  const categories = [...new Set(dbProducts.map(product => product.category))];
+  // const productsDbUrl = "https://mihkel-react-10-2022-default-rtdb.europe-west1.firebasedatabase.app/products.json";
 
-    const { t } = useTranslation();
+  useEffect(() => {
+    fetch(config.productsDbUrl)
+      .then(res => res.json())
+      .then(json => {
+          setProducts(json);
+          setDbProducts(json);
+        });
+  }, []);
 
-    const [products, setProducts] = useState(productsFromFile.slice());
-    const categories = [...new Set(productsFromFile.map(product => product.category))];
+  // sorteerimist    .sort()   localeCompare
+  // võtame kõik kategooriad toodete küljest ja kuvame need -> ["guitar", "drum"]   .map()
+  // filtreerimist kui ühe kategooria peale klikitakse    .filter()
+  const sortAZ = () => {
+    // ["guitar", "drum"].sort();
+    products.sort((a,b) => a.name.localeCompare(b.name));
+    setProducts(products.slice());
+  }
 
-    const sortAZ = () => {
-      products.sort((a,b) => a.name.localeCompare(b.name));
-      setProducts(products.slice());
-    }
-    const sortZA = () => {
-      // products.sort((b,a) => b.name.localCompare(a.name));
-      // products.sort((a,b) => -1 * a.name.localCompare(b.name));
-      products.sort((a,b) => b.name.localeCompare(a.name));
-      setProducts(products.slice());
-    }
-    const sortPriceAsc = () => {
-      products.sort((a,b) => a.price - b.price);
-      setProducts(products.slice());
-    }
-    const sortPriceDesc = () => {
-      products.sort((a,b) => b.price - a.price);
-      setProducts(products.slice());
-    }
+  const sortZA = () => {
+    //1.  products.sort((a,b) => a.name.localeCompare(b.name)).reverse();
+    //2.  products.sort((a,b) => -1 * a.name.localeCompare(b.name));
+    products.sort((a,b) => b.name.localeCompare(a.name));
+    setProducts(products.slice());
+  }
 
-    const addToCart = (productClicked) => {
-      let cartLS = localStorage.getItem("cart");
-      cartLS = JSON.parse (cartLS) || [];
-      // cartLS.push(productClicked);
-      const index = cartLS.findIndex(element => element.product_id === productClicked.id);
-      if (index >= 0) { // kas toode on olemas või mitte, pidin .find() tegema kontrolli kas on undefined
-        //kas toode on olemas või mitte .findIndex() ---> pean kontrollima kas on suurem/võrdne 0, ehk ei ole -1
-        cartLS[index].quantity = cartLS[index].quantity + 1;
-      } else {
-        // {id:312, name:"asda", price: 3231, ...}
-        // {product_id:312, quantity: 1}
-        cartLS.push({product_id: productClicked.id, quantity: 1})
-      }
-      cartLS = JSON.stringify(cartLS);
-      localStorage.setItem("cart",cartLS);
-    }
+  const sortPriceAsc = () => {
+    products.sort((a,b) => a.price - b.price);
+    setProducts(products.slice());
+  }
 
-    const filterByCategory = (categoryClicked) => {
-      const result = productsFromFile.filter(product => product.category === categoryClicked);
+  const sortPriceDesc = () => {
+    products.sort((a,b) => b.price - a.price);
+    setProducts(products.slice());
+  }
+
+  const addToCart = (productClicked) => {
+    let cart = sessionStorage.getItem("cart");
+    cart = JSON.parse(cart) || [];
+    // cart.push(productClicked);
+    const index = cart.findIndex(element => element.product_id === productClicked.id);
+    if (index >= 0) { // kas toode on olemas või mitte, pidin .find() tegema kontrolli kas on undefined
+      // kas on toode olemas või mitte .findIndex()   ---> pean kontrollimas kas on suurem/võrdne 0 ehk ei ole -1
+      cart[index].quantity = cart[index].quantity + 1;
+      // cart[index].quantity += 1;
+      // cart[index].quantity++;
+    } else {
+      // {id: 312, name: "asda", price: 3123, ...}
+      // {product_id: 312, quantity: 1}
+      cart.push({product_id: productClicked.id, quantity: 1})
+    }
+    cart = JSON.stringify(cart);
+    sessionStorage.setItem("cart", cart);
+    toast.success("Product has been added to cart!", {
+      position: 'bottom-right',
+      theme: 'dark',
+    });
+    
+  }
+
+  const filterByCategory = (categoryClicked) => {
+    const result = dbProducts.filter(product => product.category === categoryClicked);
     setProducts(result);
-    }
+  }
 
+  if (products.length === 0) {
+    return (<Spinner animation="border" />)
+  }
+<ToastContainer />
   return ( 
     <div>
       {categories.map(element => 
       <button key={element} onClick={() => filterByCategory(element)}>
-      {element}
+        {element}
       </button>)}
 
-      <div>Total items {products.length}</div>
+      <div>Kokku tooteid {products.length}</div>
 
-      <button onClick className="nupp">={sortAZ}>Sort A-Z</button>
-      <button onClick className="nupp">={sortZA}>Sort Z-A</button>
-      <button onClick className="nupp">={sortPriceAsc}>Sort Price Asc </button>
-      <button onClick className="nupp">={sortPriceDesc}>Sort Price Desc</button>
+      <button onClick={sortAZ}>Sorteeri A-Z</button>
+      <button onClick={sortZA}>Sorteeri Z-A</button>
+      <button onClick={sortPriceAsc}>Sorteeri hind kasvavalt</button>
+      <button onClick={sortPriceDesc}>Sorteeri hind kahanevalt</button>
       {products.map(element => 
         <div key={element.id}>
           <img src={element.image} alt="" />
           <div>{element.name}</div>
           <div>{element.price}</div>
-          <Button onClick={() => addToCart(element)}>{t('Add to cart')}</Button>
+          <Button onClick={() => addToCart(element)}>Lisa ostukorvi</Button>
         </div>)}
     </div> );
 }

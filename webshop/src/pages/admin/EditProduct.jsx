@@ -1,18 +1,18 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import productsFromFile from "../../data/products.json"
+// import productsFromFile from "../../data/products.json"
+// import productsFromFile from "../../data/products.json"
+import config from "../data/config.json"
 
 function EditProduct() {
     // const { id } = useParams(); // console.log(id)
+    const [dbProducts, setDbProducts] = useState([])
     const params = useParams();     // console.log(params.id)
-    
-    const productFound = productsFromFile.find(element => element.id === Number(params.id));
-    const index = productsFromFile.indexOf(productFound);
+    const productFound = dbProducts.find(element => element.id === Number(params.id));
+    const index = dbProducts.indexOf(productFound);
     
     // const index2 = productsFromFile.findIndex(element => element.id === Number(params.id));
     // const productFound2 = productsFromFile[index2];
-    
-    
     
     //võib panna ka idKaka v mida iganes ise tahad panna
     const idRef = useRef();
@@ -22,8 +22,16 @@ function EditProduct() {
     const categoryRef = useRef();
     const descriptionRef = useRef();
     const activeRef = useRef();
-
     const navigate = useNavigate()
+
+    useEffect(() => {
+      fetch(config.productsDbUrl)
+        .then(res => res.json())
+        .then(json => {
+            // setProducts(json);
+            setDbProducts(json);
+          });
+    }, []);
 
     const update = () => {
         const updatedProduct = {
@@ -35,7 +43,7 @@ function EditProduct() {
             "description":descriptionRef.current.value,
             "active":activeRef.current.checked,
         }
-        productsFromFile[index] = updatedProduct
+        dbProducts[index] = updatedProduct
         navigate("/admin/maintain-products")
     }
 
@@ -46,17 +54,14 @@ function EditProduct() {
     const checkIdUniqueness = () => {
       if (params.id === idRef.current.value) {
         setIdUnique(true);
-        console.log("Same ID")
         return;
       }  
         
-      const found = productsFromFile.find(element => element.id === Number(idRef.current.value));
+      const found = dbProducts.find(element => element.id === Number(idRef.current.value));
       if (found === undefined) {
         setIdUnique(true);
-        console.log("ID not in use, it is unique");
       } else {
         setIdUnique(false);
-        console.log("ID already in use");
       }
       
     }
