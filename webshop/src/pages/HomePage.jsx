@@ -78,8 +78,7 @@ function HomePage() {
   if (products.length === 0) {
     return (<Spinner animation="border" />)
   }
-<ToastContainer />
-  return ( 
+  return (
     <div>
       {categories.map(element => 
       <button key={element} onClick={() => filterByCategory(element)}>
@@ -99,6 +98,7 @@ function HomePage() {
           <div>{element.price}</div>
           <Button onClick={() => addToCart(element)}>Lisa ostukorvi</Button>
         </div>)}
+        <ToastContainer />
     </div> );
 }
 

@@ -30,6 +30,7 @@ const resources = {
       "Add to cart": "Lisa ostukorvi",
       "Empty Cart": "Tühjenda ostukorv",
       "Total": "Summa",
+      
     }
   },
   chi: {

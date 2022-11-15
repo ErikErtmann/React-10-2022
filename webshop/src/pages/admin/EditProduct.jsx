@@ -2,7 +2,8 @@ import { useRef, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 // import productsFromFile from "../../data/products.json"
 // import productsFromFile from "../../data/products.json"
-import config from "../data/config.json"
+import config from "../../data/config.json";
+import { ToastContainer} from 'react-toastify';
 
 function EditProduct() {
     // const { id } = useParams(); // console.log(id)
@@ -23,6 +24,7 @@ function EditProduct() {
     const descriptionRef = useRef();
     const activeRef = useRef();
     const navigate = useNavigate()
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
       fetch(config.productsDbUrl)
@@ -31,7 +33,11 @@ function EditProduct() {
             // setProducts(json);
             setDbProducts(json);
           });
-    }, []);
+        fetch(config.categoriesDbUrl)
+          .then(res => res.json())
+          .then(json => setCategories(json || []));
+      }, []);
+
 
     const update = () => {
         const updatedProduct = {
@@ -43,8 +49,12 @@ function EditProduct() {
             "description":descriptionRef.current.value,
             "active":activeRef.current.checked,
         }
-        dbProducts[index] = updatedProduct
-        navigate("/admin/maintain-products")
+        dbProducts[index] = updatedProduct;
+
+        fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(dbProducts)})
+        .then (() => {
+          navigate("/admin/maintain-products");
+        });
     }
 
     // onChange={} iga muutus hakkab otsima
@@ -80,7 +90,14 @@ function EditProduct() {
         <label>Image</label> <br />
         <input ref={imageRef} defaultValue={productFound.id} type="text"/> <br />
         <label>Category</label> <br />
-        <input ref={categoryRef} defaultValue={productFound.id} type="text"/> <br />
+        {/* <input ref={categoryRef} defaultValue={productFound.id} type="text"/> <br /> */}
+        <select ref={categoryRef} defaultValue={productFound}>
+          { categories.map((element, index) =>
+            <option key={index}>
+              {element.name}
+            </option>
+            ) }
+        </select> 
         <label>Description</label> <br />
         <input ref={descriptionRef} defaultValue={productFound.id} type="text"/> <br />
         <label>Active</label> <br />
@@ -89,6 +106,7 @@ function EditProduct() {
       </div>
       }
       { productFound === undefined && <div>Couldn't find the product </div>}
+      <ToastContainer />
     </div> );
 }
 

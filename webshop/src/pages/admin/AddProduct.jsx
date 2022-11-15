@@ -1,9 +1,11 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 // import productsFromFile from "../../data/products.json";
-import config from "../data/config.json"
+import config from "../../data/config.json";
+import { ToastContainer, toast } from 'react-toastify';
 
 function AddProduct() {
-  const [dbProducts, setDbProducts] = useState ([]);
+  const [dbProducts, setDbProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const idRef = useRef();
   const nameRef = useRef();
   const priceRef = useRef();
@@ -19,9 +21,22 @@ function AddProduct() {
           // setProducts(json);
           setDbProducts(json);
         });
+    
+    fetch(config.categoriesDbUrl)
+      .then(res => res.json())
+      .then(json => setCategories(json || []));
   }, []);
 
+
   const add = () => {
+    if (idRef.current.value === "") {
+      toast.error("Id peab olema täidetud!", {
+        position: 'bottom-right',
+        theme: 'dark'
+      });
+      return;
+    }
+
     const newProduct = {
       "id": Number(idRef.current.value),
       "name": nameRef.current.value,
@@ -32,6 +47,20 @@ function AddProduct() {
       "active": activeRef.current.checked,
     }
     dbProducts.push(newProduct);
+    fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(dbProducts)})
+    .then(() => {
+      idRef.current.value = "";
+      nameRef.current.value = "";
+      priceRef.current.value = "";
+      imageRef.current.value = "";
+      categoryRef.current.value = "";
+      descriptionRef.current.value = "";
+      activeRef.current.value= false;
+      toast.success("Edukalt kustutatud!", {
+        position: 'bottom-right',
+        theme: 'dark',
+      });
+    });
   }
 
   return ( 
@@ -45,12 +74,20 @@ function AddProduct() {
       <label>Pilt</label> <br />
       <input ref={imageRef} type="text" /> <br />
       <label>Kategooria</label> <br />
-      <input ref={categoryRef} type="text" /> <br />
+      {/* <input ref={categoryRef} type="text" /> <br /> */}
+      <select ref={categoryRef}>
+      { categories.map((element, index) =>
+        <option key={index}>
+          {element.name}
+          </option>
+          ) }
+      </select> 
       <label>Kirjeldus</label> <br />
       <input ref={descriptionRef} type="text" /> <br />
       <label>Aktiivne</label> <br />
       <input ref={activeRef} type="checkbox" /> <br />
       <button onClick={add}>Lisa</button>
+      <ToastContainer />
     </div> );
 }
 

@@ -19,3 +19,11 @@ body{
 .nupp{
   background-color:#5b7553;
 }
+
+.active{
+  border: 1px solid green;
+}
+
+.inactive{
+  border: 1px solid red;
+}
