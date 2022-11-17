@@ -15,8 +15,8 @@ function HomePage() {
     fetch(config.productsDbUrl)
       .then(res => res.json())
       .then(json => {
-          setProducts(json);
-          setDbProducts(json);
+          setProducts(json || []);
+          setDbProducts(json || []);
         });
   }, []);
 
@@ -63,11 +63,10 @@ function HomePage() {
     }
     cart = JSON.stringify(cart);
     sessionStorage.setItem("cart", cart);
-    toast.success("Product has been added to cart!", {
+    toast.success("Edukalt ostukorvi lisatud!", {
       position: 'bottom-right',
-      theme: 'dark',
+      theme: 'dark'
     });
-    
   }
 
   const filterByCategory = (categoryClicked) => {
@@ -78,7 +77,8 @@ function HomePage() {
   if (products.length === 0) {
     return (<Spinner animation="border" />)
   }
-  return (
+
+  return ( 
     <div>
       {categories.map(element => 
       <button key={element} onClick={() => filterByCategory(element)}>
@@ -98,7 +98,7 @@ function HomePage() {
           <div>{element.price}</div>
           <Button onClick={() => addToCart(element)}>Lisa ostukorvi</Button>
         </div>)}
-        <ToastContainer />
+      <ToastContainer />
     </div> );
 }
 

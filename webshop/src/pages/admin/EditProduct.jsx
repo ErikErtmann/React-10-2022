@@ -1,112 +1,114 @@
-import { useRef, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-// import productsFromFile from "../../data/products.json"
-// import productsFromFile from "../../data/products.json"
+// import productsFromFile from "../../data/products.json";
 import config from "../../data/config.json";
-import { ToastContainer} from 'react-toastify';
+import { useEffect, useRef, useState } from "react";
+import { Spinner } from "react-bootstrap";
 
 function EditProduct() {
-    // const { id } = useParams(); // console.log(id)
-    const [dbProducts, setDbProducts] = useState([])
-    const params = useParams();     // console.log(params.id)
-    const productFound = dbProducts.find(element => element.id === Number(params.id));
-    const index = dbProducts.indexOf(productFound);
-    
-    // const index2 = productsFromFile.findIndex(element => element.id === Number(params.id));
-    // const productFound2 = productsFromFile[index2];
-    
-    //võib panna ka idKaka v mida iganes ise tahad panna
-    const idRef = useRef();
-    const nameRef = useRef();
-    const priceRef = useRef();
-    const imageRef = useRef();
-    const categoryRef = useRef();
-    const descriptionRef = useRef();
-    const activeRef = useRef();
-    const navigate = useNavigate()
-    const [categories, setCategories] = useState([]);
+  //const { id } = useParams();  // console.log(id);
+  const [dbProducts, setDbProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-      fetch(config.productsDbUrl)
+  const params = useParams();              //             49950471 === "49950471"
+  const productFound = dbProducts.find(element => element.id === Number(params.id));
+  const index = dbProducts.indexOf(productFound);
+  // const index2 = productsFromFile.findIndex(element => element.id === Number(params.id));
+  // const productFound2 = productsFromFile[index2];
+
+  const idRef = useRef();
+  const nameRef = useRef();
+  const priceRef = useRef();
+  const imageRef = useRef();
+  const categoryRef = useRef();
+  const descriptionRef = useRef();
+  const activeRef = useRef();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(config.categoriesDbUrl)
+      .then(res => res.json())
+      .then(json => {
+        setCategories(json || []);
+
+        fetch(config.productsDbUrl)
         .then(res => res.json())
         .then(json => {
             // setProducts(json);
-            setDbProducts(json);
+            setDbProducts(json || []);
+            setIsLoading(false);
           });
-        fetch(config.categoriesDbUrl)
-          .then(res => res.json())
-          .then(json => setCategories(json || []));
-      }, []);
+      });
+  }, []);
 
-
-    const update = () => {
-        const updatedProduct = {
-            "id":Number(idRef.current.value),
-            "name":nameRef.current.value,
-            "price":Number(priceRef.current.value),
-            "image":imageRef.current.value,
-            "category":categoryRef.current.value,
-            "description":descriptionRef.current.value,
-            "active":activeRef.current.checked,
-        }
-        dbProducts[index] = updatedProduct;
-
-        fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(dbProducts)})
-        .then (() => {
-          navigate("/admin/maintain-products");
-        });
+  const update = () => {
+    const updatedProduct = {
+      "id": Number(idRef.current.value),
+      "name": nameRef.current.value,
+      "price": Number(priceRef.current.value),
+      "image": imageRef.current.value,
+      "category": categoryRef.current.value,
+      "description": descriptionRef.current.value,
+      "active": activeRef.current.checked,
     }
+    dbProducts[index] = updatedProduct;
 
-    // onChange={} iga muutus hakkab otsima
+    fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(dbProducts)})
+    .then(() => {
+      navigate("/admin/maintain-products");
+    });
+  }
 
-    const [idUnique, setIdUnique] = useState(true);
+  const [idUnique, setIdUnique] = useState(true);
 
-    const checkIdUniqueness = () => {
-      if (params.id === idRef.current.value) {
-        setIdUnique(true);
-        return;
-      }  
-        
-      const found = dbProducts.find(element => element.id === Number(idRef.current.value));
-      if (found === undefined) {
-        setIdUnique(true);
-      } else {
-        setIdUnique(false);
-      }
+  const checkIdUniqueness = () => {
+    if (params.id === idRef.current.value) {
+      setIdUnique(true);
+      return; // selle kohaga saab funktsioon läbi
+    } 
       
+    const found = dbProducts.find(element => element.id === Number(idRef.current.value));
+    if (found === undefined) {
+      setIdUnique(true);
+    } else {
+      setIdUnique(false);
     }
+    
+  }
 
-    return ( 
+  return ( 
     <div>
       { productFound !== undefined && 
-      <div>
-        { idUnique === false && <div> This ID is already in use </div>}
-        <label>ID</label> <br />
-        <input ref={idRef} onChange={checkIdUniqueness} defaultValue={productFound.id} type="number"/> <br />
-        <label>Name</label> <br />
-        <input ref={nameRef} defaultValue={productFound.id} type="text"/> <br />
-        <label>Price</label> <br />
-        <input ref={priceRef} defaultValue={productFound.id} type="number"/> <br />
-        <label>Image</label> <br />
-        <input ref={imageRef} defaultValue={productFound.id} type="text"/> <br />
-        <label>Category</label> <br />
-        {/* <input ref={categoryRef} defaultValue={productFound.id} type="text"/> <br /> */}
-        <select ref={categoryRef} defaultValue={productFound}>
-          { categories.map((element, index) =>
-            <option key={index}>
-              {element.name}
-            </option>
-            ) }
-        </select> 
-        <label>Description</label> <br />
-        <input ref={descriptionRef} defaultValue={productFound.id} type="text"/> <br />
-        <label>Active</label> <br />
-        <input ref={activeRef} defaultChecked={productFound.id} type="checkbox"/> <br />
-        <button disabled ={idUnique === false} onClick={update}>Update</button>
-      </div>
+        <div>
+         { idUnique === false && <div>Sisestatud ID on kellelgi teisel olemas!</div>}
+          <label>ID</label> <br />
+          <input ref={idRef} onChange={checkIdUniqueness} defaultValue={productFound.id} type="number" /> <br />
+          <label>Nimi</label> <br />
+          <input ref={nameRef} defaultValue={productFound.name} type="text" /> <br />
+          <label>Hind</label> <br />
+          <input ref={priceRef} defaultValue={productFound.price} type="number" /> <br />
+          <label>Pilt</label> <br />
+          <input ref={imageRef} defaultValue={productFound.image} type="text" /> <br />
+          <label>Kategooria</label> <br />
+          {/* <input ref={categoryRef} defaultValue={productFound.category} type="text" /> <br /> */}
+          <select ref={categoryRef} defaultValue={productFound.category}>
+            { categories.map((element, index) => 
+              <option key={index}>
+                {element.name}
+              </option>
+              ) }
+          </select> <br />
+          <label>Kirjeldus</label> <br />
+          <input ref={descriptionRef} defaultValue={productFound.description} type="text" /> <br />
+          <label>Aktiivne</label> <br />
+          <input ref={activeRef} defaultChecked={productFound.active} type="checkbox" /> <br />
+          <button disabled={idUnique === false} onClick={update}>Uuenda</button>
+               {/* disabled={!idUnique} */}
+        </div>
       }
-      { productFound === undefined && <div>Couldn't find the product </div>}
-      <ToastContainer />
+      { productFound === undefined && isLoading === false && <div>Toodet ei leitud</div>}
+      { isLoading === true && <Spinner animation="border" />}
     </div> );
 }
 

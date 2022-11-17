@@ -19,14 +19,13 @@ function AddProduct() {
       .then(res => res.json())
       .then(json => {
           // setProducts(json);
-          setDbProducts(json);
+          setDbProducts(json || []);
         });
-    
+
     fetch(config.categoriesDbUrl)
       .then(res => res.json())
       .then(json => setCategories(json || []));
   }, []);
-
 
   const add = () => {
     if (idRef.current.value === "") {
@@ -36,7 +35,6 @@ function AddProduct() {
       });
       return;
     }
-
     const newProduct = {
       "id": Number(idRef.current.value),
       "name": nameRef.current.value,
@@ -55,10 +53,10 @@ function AddProduct() {
       imageRef.current.value = "";
       categoryRef.current.value = "";
       descriptionRef.current.value = "";
-      activeRef.current.value= false;
-      toast.success("Edukalt kustutatud!", {
+      activeRef.current.checked = false;
+      toast.success("Uus toode lisatud!", {
         position: 'bottom-right',
-        theme: 'dark',
+        theme: 'dark'
       });
     });
   }
@@ -76,12 +74,12 @@ function AddProduct() {
       <label>Kategooria</label> <br />
       {/* <input ref={categoryRef} type="text" /> <br /> */}
       <select ref={categoryRef}>
-      { categories.map((element, index) =>
-        <option key={index}>
-          {element.name}
+        { categories.map((element, index) => 
+          <option key={index}>
+            {element.name}
           </option>
           ) }
-      </select> 
+      </select> <br />
       <label>Kirjeldus</label> <br />
       <input ref={descriptionRef} type="text" /> <br />
       <label>Aktiivne</label> <br />

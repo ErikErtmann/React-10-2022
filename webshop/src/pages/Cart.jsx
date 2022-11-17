@@ -3,32 +3,32 @@ import { useMemo, useEffect, useState } from "react";
 import "../css/cart.css";
 import { Link } from "react-router-dom";
 import config from "../data/config.json";
+import ParcelMachines from "../components/ParcelMachines";
+import Payment from "../components/Payment";
+import { Spinner } from "react-bootstrap";
+
 
 function Cart() {
-  // Tehke sessionStorage-st ostukorvi võtmine
   const cartSS = useMemo(() => JSON.parse(sessionStorage.getItem("cart")) || [],[]);
   const [cart, setCart] = useState([]);
-  const [parcelMachines, setParcelMachines] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
+  
 
   useEffect(() => {
-    fetch("https://www.omniva.ee/locations.json")
-      .then(res => res.json())
-      .then(json => setParcelMachines(json));
-    
+    setIsLoading(true);
     fetch(config.productsDbUrl)
       .then(res => res.json())
       .then(json => {
-          const cartWithProducts = cartSS.map(element => {
-            return {
-              "product": json.find(product => product.id === element.product_id), 
-              "quantity": element.quantity
-            }
-          });
-          setCart(cartWithProducts.filter(element => element.product !== undefined));
+        const cartWithProducts = cartSS.map(element => {
+          return {
+            "product": json.find(product => product.id === element.product_id), 
+            "quantity": element.quantity
+          }
         });
-      }, [cartSS]);
-    
-
+        setCart(cartWithProducts.filter(element => element.product !== undefined));
+        setIsLoading(false);
+      });
+  }, [cartSS]);
 
   const removeFromCart = (productIndex) => {
     cartSS.splice(productIndex, 1); // hilisemaks sessionStorage panekuks
@@ -75,40 +75,39 @@ function Cart() {
     sessionStorage.setItem("cart", JSON.stringify(cartSS));
   }
 
+  if (isLoading === true) {
+    return(<Spinner animation="border" />)
+  }
+
   return ( 
     <div>
-      { cart.lenght > 0 &&
-      <div className="cart-top">
-      <button onClick={emptyCart}>Empty cart</button> 
-      <div> Items in cart: {cart.length} pcs</div> 
-      </div>}
-
+      { cart.length > 0 && 
+        <div className="cart-top">
+          <button onClick={emptyCart}>Tühjenda ostukorv</button>
+          <div>Ostukorvis esemeid: {cart.length} tk</div>
+        </div>}
       { cart.map((element, index) => 
         <div className="product" key={index}>
           <img className="image" src={element.product.image} alt="" />
           <div className="name">{element.product.name}</div>
           <div className="price">{element.product.price} €</div>
-        
-         <div className="quantity">
-          <img className="button" onClick={() => decreaseQuantity(index)} src={requestAnimationFrame("../images/minus.png")} alt=""  />
-          <div>{element.quantity} tk</div>
-          <img className="button" onClick={() => increaseQuantity(index)} src={requestAnimationFrame("../images/plus.png")} alt=""/>
-         </div> 
-         
+          <div className="quantity">
+            <img className="button" onClick={() => decreaseQuantity(index)} src={require("../images/minus.png")} alt="" />
+            <div>{element.quantity} tk</div>
+            <img className="button" onClick={() => increaseQuantity(index)} src={require("../images/plus.png")} alt="" />
+          </div>
           <div className="sum">{ element.product.price * element.quantity } €</div>
-          <img className="button" onClick={() => removeFromCart(index)} src={requestAnimationFrame("../images/trash.png")} alt="" />
+          <img className="button" onClick={() => removeFromCart(index)} src={require("../images/trash.png")} alt="" />
         </div>)}
 
-    {cart.lenght > 0 &&
-    <div className="cart-bottom">
-      { cart.length > 0 &&  <div>Cart total: {calculateCartSum()}</div>}
+     { cart.length > 0 &&
+      <div className="cart-bottom">
+       <div>Ostukorvi kogusumma: {calculateCartSum()}</div>
 
-      { cart.length > 0 && <select>
-        {parcelMachines
-        .filter(element => element.A0_NAME === "EE" && element.ZIP !== "96331")
-        .map(element => <option key={element.NAME}>{element.NAME}</option>)}
-      </select>}
-    </div>}
+      <ParcelMachines />
+      <br/>
+      <Payment sum={calculateCartSum()} />
+     </div>}
 
       { cart.length === 0 && <div>Ostukorv on tühi. <Link to="/">Tooteid valima</Link> </div> }
     </div> );

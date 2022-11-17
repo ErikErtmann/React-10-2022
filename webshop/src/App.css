@@ -26,4 +26,16 @@ body{
 
 .inactive{
   border: 1px solid red;
+  margin: 2px;
+}
+
+.map {
+  height: 300px;
+}
+
+.footer {
+  background: #212529;
+  color: white;
+  height: 60px;
+  margin-top: 50px;
 }
