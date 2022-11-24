@@ -1,0 +1,20 @@
+{
+    "translation": {
+      "admin": "Administraatori vaatesse",
+      "shops": "Meie poed",
+      "cart": "Ostukorv",
+      "Your cart is currently empty": "Teie ostukorv on hetkel tühi",
+      "You currently have": "Hetkel teil on",
+      "items in cart with a total of ": "toodet ostukorvis, mille kogusumma on ",
+      "Add to cart": "Lisa ostukorvi",
+      "Empty Cart": "Tühjenda ostukorv",
+      "Total": "Summa",
+      "USER_DISABLED": "Kasutaja blokeeritud",
+      "INVALID_EMAIL": "Vale e-mail",
+      "INVALID_PASSWORD": "Vale parool",
+      "MISSING_PASSWORD": "Parool puudu",
+      "WEAK_PASSWORD : Password should be at least 6 characters":"Parool liiga nõrk, kasuta vähemalt 6 tähemärki",
+      "EMAIL_NOT_FOUND": "E-maili ei leitud",
+      "EMAIL_EXISTS": "E-mail on juba kasutuses"
+    }
+  }
