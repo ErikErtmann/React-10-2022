@@ -1,6 +1,6 @@
 import { useMemo, useEffect, useState } from "react";
 // import productsFromFile from "../data/products.json";
-import "../css/cart.css";
+import "../css/Cart.module.css";
 import { Link } from "react-router-dom";
 import config from "../data/config.json";
 import ParcelMachines from "../components/cart/ParcelMachines";

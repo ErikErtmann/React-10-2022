@@ -1,3 +1,9 @@
+.carousel {
+  position: relative;
+  width: 500px;
+  margin: auto;
+}
+
 .lang {
   width: 32px;
   height: 32px;
@@ -20,11 +26,11 @@ body{
   background-color:#5b7553;
 }
 
-.active{
+.active-product{
   border: 1px solid green;
 }
 
-.inactive{
+.inactive-product{
   border: 1px solid red;
   margin: 2px;
 }

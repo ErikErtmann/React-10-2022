@@ -1,13 +1,13 @@
-import { useTranslation } from "react-i18next";
-import { useContext, useRef, useState } from "react";
+import { useContext, useState, useRef } from "react";
 import AuthContext from "../store/AuthContext";
+import { useTranslation } from 'react-i18next';
 
 function Login() {
   const authCtx = useContext(AuthContext);
   const emailRef = useRef();
   const passwordRef = useRef();
-  const url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCNiVmxS-uZJB5iUHlDTvEHqXYC6ADgzlI";
-  const [message, setMessage] = useState("")
+  const url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAzpBE5CgmmpVJ5JWTU4k-2ROepkem1TKw";
+  const [message, setMessage] = useState("");
   const { t } = useTranslation();
 
   const login = () => {
@@ -16,25 +16,26 @@ function Login() {
       "password": passwordRef.current.value,
       "returnSecureToken": true
     }
-    fetch (url,{
+
+    fetch(url,{
       "method": "POST",
-      "body":JSON.stringify(newUser),
+      "body": JSON.stringify(newUser),
       "headers": {
         "Content-Type": "application/json",
       }
-  }).then(res => res.json())
-  .then(json => {
-  if (json.idToken !== undefined) {
-    authCtx.login(json.idToken);
-  } else if (json.error !== undefined) {
-    setMessage((json.error.message));
+    }).then(res => res.json())
+    .then(json => {
+      if (json.idToken !== undefined) {
+        authCtx.login(json.idToken);
+      } else if (json.error !== undefined) {
+        setMessage(json.error.message);
+      }
+    });
   }
- });
- }
 
   return ( 
     <div>
-      <div>{t(message)}</div>
+      { message !== "" && <div>{t("firebase." + message)}</div>}
       <label>E-mail</label><br />
       <input ref={emailRef} type="text" /> <br />
       <label>Parool</label><br />

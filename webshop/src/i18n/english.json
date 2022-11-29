@@ -1,20 +1,29 @@
 {
-    "translation": {
+  "translation": {
+    "nav": {
       "admin": "To admin view",
       "shops": "Our shops",
-      "cart": "Cart",
-      "Your cart is currently empty": "Your cart is currently empty",
-      "You currently have": "You currently have",
-      "items in cart with a total of": "items in cart with a total of",
-      "Add to cart": "Add to cart",
-      "Empty Cart": "Empty Cart",
-      "Total": "Total",
+      "cart": "Cart"
+    },
+    "url": {
+      "admin": "admin",
+      "shops": "shops",
+      "cart": "cart"
+    },
+    "drums": "Drums",
+    "guitars": "Guitars",
+    "violins": "Violins",
+    "firebase": {
       "USER_DISABLED": "User disabled",
+      "EMAIL_NOT_FOUND": "Email not found",
+      "INVALID_EMAIL": "Invalid email",
+      "EMAIL_EXISTS": "Email exists",
       "MISSING_PASSWORD": "Missing password",
-      "WEAK_PASSWORD : Password should be at least 6 characters":"Password too weak, should be atleast 6 characters",   
       "INVALID_PASSWORD": "Invalid password",
-      "INVALID_EMAIL" : "Invalid Email",
-      "EMAIL_NOT_FOUND": "E-mail not found",
-      "EMAIL_EXISTS": "E-mail already exists"
-    }
+      "WEAK_PASSWORD : Password should be at least 6 characters": "Password should be at least 6 characters",
+      "OPERATION_NOT_ALLOWED": "Operation not allowed",
+      "TOO_MANY_ATTEMPTS_TRY_LATER": "Too many attempts, try later"
+    },
+    "added-to-cart": "Successfully added to cart"
   }
+}
