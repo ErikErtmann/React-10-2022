@@ -1,21 +1,23 @@
+import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Route, Routes,Link } from 'react-router-dom'
 import Cart from './pages/Cart';
-import HomePage from '../pages/HomePage';
+import HomePage from './pages/HomePage';
+import PaymentCompleted from './pages/PaymentCompleted';
 
 function App() {
   return (
     <div>
       <Link to="/">
-       <button>Avalehele</button>
+        <button>Avalehele</button>
       </Link>
       <Link to="/ostukorv">
-       <button>Ostukorvi</button>
+        <button>Ostukorvi</button>
       </Link>
-    
+     
       <Routes>
-        <Route path="" element= { <HomePage/>} />
-        <Route path="ostukorv" element = {<Cart/>} />
+        <Route path="" element={ <HomePage /> } />
+        <Route path="ostukorv" element={ <Cart /> } />
+        <Route path="tellimus" element={ <PaymentCompleted /> } />
       </Routes>
     </div>
   );

@@ -1,36 +1,28 @@
 .carousel {
-  position: relative;
   width: 500px;
   margin: auto;
 }
 
 .lang {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
 }
 
 .lang:hover {
-  opacity:0.5;
+  opacity: 0.7;
 }
 
 .lang:active {
   padding: 1px;
 }
 
-body{
-  background-color:#c3e8bd;
-}
-
-.nupp{
-  background-color:#5b7553;
-}
-
-.active-product{
+.active-product {
   border: 1px solid green;
+  margin: 2px;
 }
 
-.inactive-product{
+.inactive-product {
   border: 1px solid red;
   margin: 2px;
 }
@@ -40,8 +32,8 @@ body{
 }
 
 .footer {
-  background: #212529;
+  background-color: #212529;
   color: white;
-  height: 60px;
+  height: 100px;
   margin-top: 50px;
 }

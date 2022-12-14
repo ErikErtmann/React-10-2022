@@ -6,13 +6,13 @@ import config from "../data/config.json";
 import { ToastContainer, toast } from 'react-toastify';
 import SortButtons from "../components/home/SortButtons";
 import Product from "../components/home/Product";
-import CarouselGallery from "../components/CarouselGallery"
+import CarouselGallery from "../components/home/CarouselGallery";
 
 function HomePage() {
   const [dbProducts, setDbProducts] = useState([]);
   const [products, setProducts] = useState([]);
   const categories = [...new Set(dbProducts.map(product => product.category))];
-
+  // const productsDbUrl = "https://react-10-2022-default-rtdb.europe-west1.firebasedatabase.app/products.json";
 
   useEffect(() => {
     fetch(config.productsDbUrl)
@@ -32,9 +32,9 @@ function HomePage() {
     return (<Spinner animation="border" />)
   }
 
-  return (
+  return ( 
     <div>
-      <CarouselGallery/>
+      <CarouselGallery />
 
       {categories.map(element => 
       <button key={element} onClick={() => filterByCategory(element)}>
