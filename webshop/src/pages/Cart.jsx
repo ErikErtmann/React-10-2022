@@ -9,11 +9,6 @@ import { Spinner } from "react-bootstrap";
 import { useContext } from "react";
 import CartSumContext from "../store/CartSumContext";
 
-// agiilne -> iga tund makstakse kinni, koguaeg presenteerime mida valmis oleme teinud kliendile
-//            klient koguaeg muudab
-// waterfall -> tehakse tükitööna, kõigepealt arutleme paika mida vaja, siis hinna
-//            ja siis teeme
-
 function Cart() {
   const cartSS = useMemo(() => JSON.parse(sessionStorage.getItem("cart")) || [],[]);
   const [cart, setCart] = useState([]);

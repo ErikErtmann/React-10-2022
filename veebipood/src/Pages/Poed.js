@@ -5,10 +5,7 @@ function Poed() {
   const [poed, uuendaPoed] = useState( poedFailist );
   const nimiRef = useRef();
   const aegRef = useRef();
-
-  // function sorteeri() {
-
-  // }
+  
 
   const sorteeriAZ = () => {
     poed.sort((a,b) => a.nimi.localeCompare(b.nimi));

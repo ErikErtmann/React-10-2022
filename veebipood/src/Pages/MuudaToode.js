@@ -1,13 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useRef } from "react";
 
-// 1. hook-d tuleb importima (nad on pärit kuskilt mujalt)
-// hookid on custom koodijupid mis hõlbustavad koodi kirjutamist
-// 2. hookid on use eesliidesega
-// 3. kõiki hooke võtan kasutusele sulgude abil
-// 4. hooke ma ei saa luua kuskil funktsiooni sees (alati top-level componendist)
-// 5. hookide loomine ei saa olla dünaamiline (if / else)
-
 function MuudaToode() {
     const { index } = useParams();
     const tooted = JSON.parse(localStorage.getItem("tooted")) || [];
@@ -25,7 +18,6 @@ function MuudaToode() {
       }
       tooted[index] = uuendatudToode;
       localStorage.setItem("tooted", JSON.stringify(tooted))   
-      // mine /halda-tooteid URL-ile
       navigate("/halda-tooteid");
     }
 

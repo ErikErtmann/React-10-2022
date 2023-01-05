@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
 
+
+
 function Uudised() {
     const uudised = JSON.parse(localStorage.getItem("uudised")) || [];
 

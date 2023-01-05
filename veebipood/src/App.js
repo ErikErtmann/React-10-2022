@@ -1,8 +1,3 @@
-// cd ..
-// cd folder vms
-// npm start
-
-
 import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Avaleht from "./pages/Avaleht";
@@ -15,14 +10,6 @@ import Poed from "./pages/Poed";
 import Seaded from "./pages/Seaded";
 import YksikToode from "./pages/YksikToode";
 
-
-
-// ctrl+ä et kommentaari panna
-/* <button className="nupp">Nupp</button>
-<img className="pilt" src="https://uscar.ee/wp-content/uploads/2019/04/challenger-gt.png" alt="" /> */
-/* <button></button> algustäg+lõputäg */
-/* <div>Tekst<div><button>Nupp</button></div></div> algustag+lõputag */
-/* <img src="" alt="" /> */
 
 function App() {
   return (

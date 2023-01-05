@@ -132,7 +132,6 @@ export default EditProduct;
 // 11. Funktsiooni sees seome kokku 7x ref.current.value
 //      väärtused ühtseks objektiks
 // 12. Editis muudame, Addis lisame
-
 // 13. Editis meil on vaja leida ka järjekorranumber (et muuta)
 // 14. Lisame defaultValue igale inputile
 // 15. Pärast editimist suuname kasutaja Toodete haldamise lehele
