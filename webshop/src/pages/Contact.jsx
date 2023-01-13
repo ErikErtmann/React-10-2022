@@ -17,7 +17,7 @@ function Contact() {
     
     emailjs.send('service_enc290a', 'template_zbxt7u2', params, 'j_ePGUxkr48bkDG-m')
     .then(() => {
-        toast.success("Edukalt saadetus")
+        toast.success("Edukalt saadetud")
         nameRef.current.value = "";
         emailRef.current.value = "";
         messageRef.current.value = "";

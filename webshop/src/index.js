@@ -22,7 +22,3 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
-
-// .red { background-color: rgb(ff0000) }
-
-// .red { background-color: ff2800 }    <--- custom-my-red-ferrari
